@@ -140,16 +140,21 @@ def run_agent(user_input: str, history: list, api_key: str = "") -> tuple[str, l
             args = json.loads(tc.function.arguments)
             result_str = TOOL_MAP[tc.function.name](**args)
 
-            # Collect parsed results (images etc.) for the UI
+            # Collect full results (with images) for the UI
+            # Send only text fields to the LLM — base64 images are not useful to it
             try:
                 parsed = json.loads(result_str)
                 if "circuit_img" in parsed:
                     tool_results.append(parsed)
+                llm_content = json.dumps({
+                    k: v for k, v in parsed.items()
+                    if k not in ("circuit_img", "histogram_img")
+                })
             except (json.JSONDecodeError, KeyError):
-                pass
+                llm_content = result_str
 
             messages.append({
                 "role": "tool",
                 "tool_call_id": tc.id,
-                "content": result_str,
+                "content": llm_content,
             })
