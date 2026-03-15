@@ -103,13 +103,15 @@ When asked to run an experiment, call the tool, then explain:
 Keep responses concise. Pick sensible defaults if parameters aren't specified."""
 
 
-def run_agent(user_input: str, history: list) -> tuple[str, list]:
+def run_agent(user_input: str, history: list, api_key: str = "") -> tuple[str, list]:
     """
     Run one turn of the agent.
     history: list of {role, content} dicts (prior turns only).
+    api_key: OpenAI key — uses env var if not provided.
     Returns (response_text, tool_results) where tool_results is a list of
     parsed JSON dicts from any tools that were called.
     """
+    openai_client = OpenAI(api_key=api_key) if api_key else client
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     for msg in history:
         messages.append({"role": msg["role"], "content": msg["content"]})
@@ -119,7 +121,7 @@ def run_agent(user_input: str, history: list) -> tuple[str, list]:
 
     # Agentic loop: keep going until no more tool calls
     while True:
-        response = client.chat.completions.create(
+        response = openai_client.chat.completions.create(
             model="gpt-4o-mini",
             messages=messages,
             tools=TOOLS_SCHEMA,

@@ -162,7 +162,7 @@ def run_simon(secret_string: str) -> str:
     qc = QuantumCircuit(n * 2, n)
     qc.h(range(n))
     qc.barrier(label='H')
-    qc += simon_oracle(b)
+    qc = qc.compose(simon_oracle(b))
     qc.barrier(label='Oracle')
     qc.h(range(n))
     qc.measure(range(n), range(n))
