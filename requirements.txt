@@ -1,0 +1,24 @@
+# Notebook dependencies
+# Install with: uv pip install -r requirements.txt
+# Required .env keys: OPENAI_API_KEY, IBM_QUANTUM_TOKEN (optional)
+
+qiskit>=1.0.0
+qiskit-aer>=0.14.0
+qiskit-ibm-runtime>=0.20.0
+
+numpy>=1.24.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+pandas>=2.0.0
+
+python-dotenv>=1.0.0
+streamlit>=1.35.0
+pylatexenc>=2.10.0
+
+# Optional: provides simon_oracle used in Simon.ipynb and H3Sol-1.ipynb
+# (a fallback is defined inline if not installed)
+# qiskit-textbook  # not on PyPI — install manually if needed: pip install git+https://github.com/qiskit-community/qiskit-textbook.git
+
+langchain>=0.0.300
+langchain-openai>=0.0.300
+openai>=1.0.0
