@@ -1,4 +1,5 @@
 # qiskit
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 This repository contains Jupyter notebooks with demos and homeworks for the Introduction to Quantum Computing course:
 - https://sisu.jyu.fi/student/courseunit/otm-7f81baf5-90e5-45dc-bd46-c4d04e511313/brochure
 - https://sites.google.com/view/qcintro
