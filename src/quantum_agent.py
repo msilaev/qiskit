@@ -6,7 +6,6 @@ load_dotenv()
 from openai import OpenAI
 from src.quantum_tools import run_deutsch, run_grover, run_simon, run_teleportation
 
-client = OpenAI()
 
 TOOL_MAP = {
     "run_deutsch": run_deutsch,
@@ -111,7 +110,7 @@ def run_agent(user_input: str, history: list, api_key: str = "") -> tuple[str, l
     Returns (response_text, tool_results) where tool_results is a list of
     parsed JSON dicts from any tools that were called.
     """
-    openai_client = OpenAI(api_key=api_key) if api_key else client
+    openai_client = OpenAI(api_key=api_key) if api_key else OpenAI()
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     for msg in history:
         messages.append({"role": msg["role"], "content": msg["content"]})
